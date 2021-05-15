@@ -1,0 +1,32 @@
+<div class="jumbotron mt-5">
+    <h1>Yarışma Tipi Seçin!</h1>
+    
+    <p class="mt-4">Bir Yarışma Tipi Seçerek Yarışmaya Bağlayabilirsiniz.</p><br>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3 bg-primary">
+
+            <div class="card-body cardBody" [routerLink] = "['/Home']" routerLinkActive="active">
+
+                <h3>Tekli Yarışma</h3>  
+                                                                    
+                <p>Size Yönlendireceğimiz Rastgele Çoktan Seçmeli Soruları Doğru Cevaplamaya Çalışarak Puanlar Kazanın .</p>
+            </div>
+
+        </div>
+        <div class="ml-3 col-md-3 bg-primary">
+
+            <div class="card-body cardBody" [routerLink] = "['/Match']" routerLinkActive="active">
+
+                <h3>Eş Zamanlı Yarışma</h3>  
+                <p>Yarışmayı Bekleyen Diğer Kullanıcılarla Eşleşin ve Yarışın. Sorulara İlk Cevap Veren Kazanır!</p>                                                         
+                
+            </div>
+
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+

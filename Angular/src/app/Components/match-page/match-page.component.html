@@ -1,0 +1,86 @@
+<div class="row text-center mt-5">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        
+        <h2 class="mb-4 text-center">Eşleşme Sayfası</h2>
+        <p style="font-size: 20px;" class="mb-4">Buradan Eşleşmeye Katılabilir, veya Eşleşmedeki Kullanıcılarla Yarışabilirsiniz.</p>
+        <div class="button-div" *ngIf="this.userInMatch === true; then InMatchButton else OutOfMatchButton"></div>
+
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+
+<div class="row text-center mt-5">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <h3 class="text-center mb-5">Aktif Eşleşmeler</h3>
+
+        <table class="text-center table table-hover mt-3 mb-5">
+            <thead>
+                <tr>
+                    <th>Kullanıcı</th>
+                    <th>Kullanıcı</th>
+                    <th>Durum</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let match of activeMatches">
+                    
+                    <td> {{match.firstUser.user.name}} {{match.firstUser.user.lastName}}</td>
+                    <td *ngIf="match.secondUser == null">Bekleniyor</td>
+                    <td *ngIf="match.secondUser != null"> {{match.secondUser.user.name}} {{match.secondUser.user.lastName}} </td>
+                    
+                    <td *ngIf="match.secondUser != null  && (match.secondUser.user?.id != this.currentUser.userId &&
+                    match.firstUser.user?.id != this.currentUser.userId)" >
+                        <b class="text-danger">Eşleşti</b>
+                    </td>
+
+                    <td *ngIf="match.secondUser == null">
+                        <button  (click)="JoinMatch(match.firstUser.user?.id)" class="btn btn-sm btn-primary"
+                        [disabled]="this.userInMatch || this.userJoinedMatch == true || this.userIsReady == true">Eşleş</button>
+                    </td>
+
+                    <td *ngIf="(match.secondUser != null && (match.secondUser.user?.id == this.currentUser.userId
+                    || match.firstUser.user?.id == this.currentUser.userId) &&this.userIsReady === false) ">
+                        <button  class="btn btn-sm btn-success"(click)="SetUserIsReady()" 
+                        [disabled]="this.userIsReady == true">Başla</button>
+                    </td>
+
+                    <td *ngIf="this.userIsReady === true && this.eventIsStarting === false
+                    && match.secondUser != null 
+                    && (match.firstUser.user?.id == this.currentUser.userId || match.secondUser.user?.id == this.currentUser.userId)">
+                        <b class="text-warning">Bekleniyor...</b>
+                    </td>
+
+                    <td *ngIf="((this.userIsReady === false && this.eventIsStarting === true) ||this.eventIsStarting === true)
+                    && match.secondUser != null && (match.secondUser.user?.id == this.currentUser.userId || match.firstUser.user?.id == this.currentUser.userId)" >
+
+                        <b class="text-success">Başlıyor</b>
+                        
+                    </td>
+            
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+
+
+<ng-template #InMatchButton>
+    <button class="btn btn-block btn-danger match-button" (click)="CreateMatch()"
+    [disabled]="userJoinedMatch == true">Eşleşmedesiniz</button>
+</ng-template>
+
+
+<ng-template #OutOfMatchButton>
+    <button class="btn btn-block btn-success match-button" (click)="CreateMatch()"
+    [disabled]="userJoinedMatch == true">Eşleşmeye Katıl</button>
+</ng-template>
+
+
+
+

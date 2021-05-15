@@ -1,0 +1,196 @@
+
+
+<div *ngIf="this.activePage === true && this.matchTerminated === false && this.eventFinished===false">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card mt-4 mb-4">
+                <div class="card-header cardHeader">
+                  <div class="row">
+                      <div class="col-md-3">
+                          <b> {{this.firstUser.user.name}}   {{this.firstUser.user.lastName}} : {{firstUsersPoint}} </b>
+                          
+                      </div>
+                      <div class="col-md-6"></div>
+                      <div class="col-md-3">
+                        <b> {{this.secondUser.user.name}}   {{this.secondUser.user.lastName}} : {{secondUsersPoint}} </b>
+                        
+                      </div>
+                  </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li style="padding: 10px;" class="image-center list-group-item">
+
+                    <img *ngIf=" this.showPicture === true" 
+                    class="image-styles" style="padding:5px;" src="../../../assets/img/{{activeQuestion.pictureName}}"
+                     width="400px" alt="">
+
+                     <div *ngIf=" this.showPicture === false && this.timerIsActive===false" class="spinner-vertical-center d-flex justify-content-center">
+                      <div class="spinner-border mb-3" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+
+
+                    <div *ngIf=" this.showPicture === false && this.timerIsActive === true" class="spinner-vertical-center d-flex justify-content-center">
+                      <h1> {{this.secondTimer}} </h1>
+                    </div>
+
+                  </li>
+                  <li class="list-group-item cardBody">
+                      <h6 class="text-center mt-2">Doğru Cevabı Yaz!</h6>
+                      <div class="input-group mt-4">
+
+                        <input [disabled]="this.disableTextbox===true" #AnswerBox id="AnswerBox" type="text" 
+                        class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+
+                        <div class="input-group-append">
+                          <button [disabled]="this.disableTextbox === true" class="btn btn-outline-primary" type="button"  (click)="this.SendAnswer(AnswerBox)">Cevapla</button>
+                          <button [disabled]="this.disableTextbox === true" class="btn btn-outline-primary" type="button" (click)="this.ClearInput(AnswerBox)">Temizle</button>
+                        </div>
+                      </div>
+                  </li>
+                </ul>
+              </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+  </div>
+
+  <div *ngIf="this.activePage === true && this.matchTerminated === false && this.eventFinished===false" class="row mb-5">
+    <div class="col-md-3"></div>
+      
+  
+    <div class="col-md-6">
+        <div class="card scroll">
+        <p *ngFor="let message of chatMessages">
+          <span *ngIf="message.user.id !== this.authService.getAccessToken.userId"><b>{{message.user.name}} {{message.user.lastName}} : </b> {{message.message}}</span>
+          <span *ngIf="message.user.id === this.authService.getAccessToken.userId"><b>Sen : </b> {{message.message}}</span>
+        </p>
+      </div>
+
+      <div class="input-group">
+        <input class="form-control" type="text" #ChatInput id="ChatInput" placeholder="mesaj...">
+
+        <div class="input-group-append">
+          <button class="btn btn-outline-primary" type="button" (click)="this.SendMessage(ChatInput)">Gönder</button>
+        </div>
+      </div>
+    </div>
+   
+  
+    <div class="col-md-3"></div>
+    
+  </div>
+
+
+
+<div *ngIf="this.activePage === false && this.matchTerminated === false">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 col-centered">
+            <div class="spinner-vertical-center d-flex justify-content-center">
+                <div class="spinner-border" style="width: 4rem; height: 4rem;" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+
+<div *ngIf="this.activePage === true && this.matchTerminated === true">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 col-centered">
+            <div class="spinner-vertical-center d-flex justify-content-center">
+                <div class="alert alert-danger">
+                    <h5>Karşı Kullanıcı Eşleşmeyi Sonlandırdı. Anasayfaya Yönlendiriliyorsunuz.</h5>
+                </div>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-4"></div>
+</div>
+
+
+
+<div *ngIf="this.eventFinished === true && this.currentUserWon === true">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+
+      <div class="alert alert-success col-vertical-center">
+        <h6>Yarışmayı Kazandınız! Dilerseniz <a [routerLink] = "['/Competitions']">Anasayfaya</a> Dönebilirsiniz.</h6>
+      </div>
+
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+
+
+<div *ngIf="this.eventFinished === true && this.oppositeUserWon === true">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+
+      <div class="alert alert-danger col-vertical-center">
+        <h6>Yarışmayı Kaybettiniz. Dilerseniz <a [routerLink] = "['/Competitions']">Anasayfaya</a> Dönebilirsiniz.</h6>
+      </div>
+
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+  
+
+
+
+
+
+
+<!-- <ng-template #CompetitionPage>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 col-centered">
+            <div class="d-flex justify-content-center">
+                <h3>Yarışma Başladı!</h3>
+              </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</ng-template>
+
+    
+<ng-template #LoadingPage>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 col-centered">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border" style="width: 4rem; height: 4rem;" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</ng-template>
+
+
+
+<ng-template #matchTerminated>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 col-centered">
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger">
+                    <h1>Karşı Kullanıcı Eşleşmeyi Sonlandırdı. Anasayfaya Yönlendiriliyorsunuz.</h1>
+                </div>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-4"></div>
+</ng-template> -->
+

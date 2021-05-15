@@ -1,0 +1,34 @@
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-10">
+
+    <div class="h-100 d-flex justify-content-center align-items-center vertical-center">
+        <div class="card borderless" style="width: 40%; border-radius: 5px;">   
+            <div class="card-header text-center" style="background-color: rgb(241, 255, 255);">
+              <h5 class="mt-1">Giriş Yap</h5>
+            </div>
+            <div class="card-body cardBody">
+
+            <form [formGroup]="loginForm" (ngSubmit)="SubmitForm()">
+
+                <div class="form-group">
+                    <label>E-Mail</label>
+                    <input type="email" class="form-control" formControlName="email">
+                </div>
+
+                <div class="form-group">
+                    <label>Şifre</label>
+                    <input type="password" class="form-control" formControlName="password">
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" class="btn btn-block btn-primary mt-5">Giriş Yap</button>
+                    
+                </div>                                                              
+            </form>
+                    </div>
+                </div>
+            </div>
+
+</div>
+<div class="col-md-1"></div>

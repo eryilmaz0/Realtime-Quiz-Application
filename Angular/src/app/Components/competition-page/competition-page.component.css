@@ -1,0 +1,44 @@
+.col-vertical-center
+{
+    margin-top: 17%;
+}
+
+
+.spinner-vertical-center
+{
+    margin-top: 50%;
+}
+
+
+.cardHeader{
+    background-color: rgb(228, 255, 255);
+}
+
+.cardBody{
+    background-color: rgb(249, 255, 255);
+}
+
+
+.image-center
+{
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+
+.image-styles
+{
+    border-radius: 15px;
+    border-color: rgb(249, 255, 255);
+    border: 1px solid;
+}
+
+
+.scroll {
+    max-height: 200px;
+    min-height: 50px;
+    overflow-y: auto;
+}
+
+
